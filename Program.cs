@@ -1,4 +1,5 @@
 using InterviewTest.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,12 @@ builder.Services.AddDbContext<ThingContext>(opt => opt.UseInMemoryDatabase("Thin
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Configure ApiBehaviorOptions
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressMapClientErrors = true;
+});
 
 var app = builder.Build();
 
