@@ -12,12 +12,12 @@ namespace InterviewTest.Controllers
     {
         private readonly PersonContext _personContext;
         private readonly PlaceContext _placeContext;
-        private readonly ThingContext _context;
-        public InitializeController(ILogger<PeopleController> logger, PersonContext personContext, PlaceContext placeContext, ThingContext context)
+        private readonly ThingContext _thingcontext;
+        public InitializeController(ILogger<PeopleController> logger, PersonContext personContext, PlaceContext placeContext, ThingContext thingcontext)
         {
             _personContext = personContext;
             _placeContext = placeContext;
-            _context = context;
+            _thingcontext = thingcontext;
         }
 
         private async Task SeedPeople()
@@ -53,31 +53,31 @@ namespace InterviewTest.Controllers
             if (person == null)
             {
                 await _placeContext.AddRangeAsync(new List<Place>() {
-            new Place()
-            {
-                Id = 1,
-                Name = "Big Ben",
-                City = "London",
-                State = "UK"
-            },
-            new Place()
-            {
-                Id = 2,
-                Name = "Willis Tower",
-                City = "Chicago",
-                State = "Illinois"
-            }
-        });
+                    new Place()
+                    {
+                        Id = 1,
+                        Name = "Big Ben",
+                        City = "London",
+                        State = "UK"
+                    },
+                    new Place()
+                    {
+                        Id = 2,
+                        Name = "Willis Tower",
+                        City = "Chicago",
+                        State = "Illinois"
+                    }
+                });
                 await _placeContext.SaveChangesAsync();
             }
         }
 
         private async Task SeedThings()
         {
-            var person = _context.Things.FirstOrDefault(p => p.Id == 1);
+            var person = _thingcontext.Things.FirstOrDefault(p => p.Id == 1);
             if (person == null)
             {
-                await _context.AddRangeAsync(new List<Thing>()
+                await _thingcontext.AddRangeAsync(new List<Thing>()
         {
             new Thing()
             {
@@ -92,7 +92,7 @@ namespace InterviewTest.Controllers
                 Description = "You can dry things with it"
             }
         });
-                await _context.SaveChangesAsync();
+                await _thingcontext.SaveChangesAsync();
             }
         }
 
