@@ -17,6 +17,13 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Remove the "X-Powered-By" header
+app.Use((context, next) =>
+{
+    context.Response.Headers.Remove("X-Powered-By");
+    return next();
+});
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

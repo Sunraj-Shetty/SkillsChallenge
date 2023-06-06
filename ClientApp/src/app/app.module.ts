@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER, InjectionToken, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+//import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CacheInterceptor } from './cache.interceptor';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { StoreModule } from '@ngrx/store';
@@ -35,10 +36,11 @@ export function initApp(service: InitializeService) {
       { path: 'places', loadComponent: () => import('./places/places.component').then(m => m.PlacesComponent) },
       { path: '', redirectTo: 'people', pathMatch: 'full' },
     ], { initialNavigation: 'disabled' }),
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({}, {}),
   ],
   providers: [{ provide: ThemeChanger, useFactory: GetThemeChanger },
-  { provide: APP_INITIALIZER, useFactory: initApp, deps: [InitializeService], multi: true }],
+    { provide: APP_INITIALIZER, useFactory: initApp, deps: [InitializeService], multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

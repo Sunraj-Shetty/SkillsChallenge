@@ -9,10 +9,13 @@
 	The performance team ran some tests and found that memory is going up from 5 MB on load to 2 GB after only a couple of hours.
 2. Bug Fix:  Navigation issue.  The description from the user is as follows:
 	> When I click on the Things nav item nothing happens
+	Solution: Added router in the app.module.ts
 
 3. Enhancement:  The users would like to see the search results cached for at least 2 minutes.  Introduce code that could accomplish this.
+	Solution: Added CacheInterceptor in the app.module.ts
 
 4. Refactor:  Remove the X-Powered-By response header
+	Solution: Added Headers.Remove in the program.cs file.
 
 5. Refactor:  The quality of this application can be improved.  In your role as a great developer, please refactor/improve this application as you seem fit.  I know we can create a product that is easier to read by other developers, improve the quality and provide more functionality for our clients.
 
